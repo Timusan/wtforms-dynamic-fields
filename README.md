@@ -43,7 +43,7 @@ Usage: add_field('machine name', 'label name', WTFormField, *args, **kwargs)
 
 The method *add_validator()* is used to add a validator to an added field configuration.
 
-Usage: add_validator('field_machine_name', WTFormValidator, *args, **kwargs)
+Usage: add_validator('field_machine_name', validator=WTFormValidator, *args, **kwargs)
 
 * Decorate field machine name arguments with %'s (%some_field_machine_name) to have them automatically suffixed with a set number if applicable. More on this below.
 
@@ -107,7 +107,7 @@ If needed, you can also apply optional validators by using the "add_validator" m
 You define on which field you wish to apply the validator and you pass in a WTForms validator:
 
 ```python
-dynamic.add_validator('email', InputRequired, args={'message':'This field is required'})
+dynamic.add_validator('email', InputRequired, message='This field is required')
 ```
 
 Here too you have the ability to pass in optional *args and *kwargs to the validator.
