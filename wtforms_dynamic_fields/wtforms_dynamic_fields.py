@@ -2,8 +2,6 @@ import re
 from webob.multidict import MultiDict
 from wtforms.form import FormMeta
 
-__version__ = '0.1a1'
-
 class WTFormsDynamicFields():
     """ Add dynamic (set) fields to a WTForm.
     
