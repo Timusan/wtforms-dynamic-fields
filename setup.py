@@ -1,4 +1,5 @@
 import sys
+import re
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 import wtforms_dynamic_fields
@@ -21,9 +22,13 @@ try:
 except (IOError, ImportError):
    long_description = open('README.md').read()
 
+with open('wtforms_dynamic_fields/__init__.py') as f:
+    m = re.findall(r'__version__\s*=\s*\'(.*)\'', f.read())
+    version = m[0]
+
 setup(
-    name='wtforms_dynamic_fields',
-    version=wtforms_dynamic_fields.__version__,
+    name='WTForms-Dynamic-Fields',
+    version=version,
     url='https://github.com/timusan/wtforms-dynamic-fields',
     license='BSD',
     author='Tim van der Linden',
