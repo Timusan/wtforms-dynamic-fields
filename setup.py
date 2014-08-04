@@ -29,7 +29,7 @@ setup(
     license='BSD',
     author='Tim van der Linden',
     tests_require=['pytest'],
-    install_requires=['WTForms>=2.0.1'],
+    install_requires=['WTForms>=2.0.1', 'WebOb>=1.4'],
     cmdclass={'test': PyTest},
     author_email='tim@shisaa.jp',
     description='Simple wrapper to add "dynamic" (sets of) fields to an already instantiated WTForms form.',
