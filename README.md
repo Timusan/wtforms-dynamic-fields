@@ -15,7 +15,7 @@ The '--pre' flag is necessary until this module has an official release.
 Then include it in your project:
 
 ```python
-from wtforms_dynamic_fields.wtforms_dynamic_fields import WTFormsDynamicFields
+from wtforms_dynamic_fields import WTFormsDynamicFields
 ```
 
 ## A few notes before using this module

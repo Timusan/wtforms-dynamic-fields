@@ -15,6 +15,13 @@ Simply use pip to install:
 
 The '--pre' flag is necessary until this module has an official release.
 
+Then include it in your project:
+
+.. code::python
+
+   from wtforms_dynamic_fields import WTFormsDynamicFields
+
+
 A few notes before using this module
 ------------------------------------
 
