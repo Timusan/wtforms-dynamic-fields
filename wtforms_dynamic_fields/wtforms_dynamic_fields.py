@@ -1,5 +1,4 @@
 import re
-from webob.multidict import MultiDict
 from wtforms.form import FormMeta
 
 class WTFormsDynamicFields():
@@ -95,8 +94,6 @@ class WTFormsDynamicFields():
 
         if not isinstance(form, FormMeta):
             raise TypeError('Given form is not a valid WTForm.')
-        if not isinstance(post, MultiDict):
-            raise TypeError('Given POST is not a MultiDict.')
 
         re_field_name = re.compile(r'\%([a-zA-Z]*)\%')
 
