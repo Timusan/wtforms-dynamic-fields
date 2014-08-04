@@ -22,7 +22,7 @@ except (IOError, ImportError):
    long_description = open('README.md').read()
 
 setup(
-    name='WTForms Dynamic Fields',
+    name='WTForms-Dynamic-Fields',
     version=wtforms_dynamic_fields.__version__,
     url='https://github.com/timusan/wtforms-dynamic-fields',
     license='BSD',
