@@ -24,7 +24,7 @@ except (IOError, ImportError):
 setup(
     name='WTForms Dynamic Fields',
     version=wtforms_dynamic_fields.__version__,
-    url='',
+    url='https://github.com/timusan/wtforms-dynamic-fields',
     license='BSD',
     author='Tim van der Linden',
     tests_require=['pytest'],
