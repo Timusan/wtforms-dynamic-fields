@@ -16,11 +16,7 @@ class PyTest(TestCommand):
         errno = pytest.main(self.test_args)
         sys.exit(errno)
 
-try:
-   import pypandoc
-   long_description = pypandoc.convert('README.md', 'rst')
-except (IOError, ImportError):
-   long_description = open('README.md').read()
+long_description = open('README.txt').read()
 
 with open('wtforms_dynamic_fields/__init__.py') as f:
     m = re.findall(r'__version__\s*=\s*\'(.*)\'', f.read())
