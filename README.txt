@@ -11,7 +11,9 @@ Simply use pip to install:
 
 .. code:: bash
 
-    pip install wtforms-dynamic-fields
+    pip install wtforms-dynamic-fields --pre
+
+The '--pre' flag is necessary until this module has an official release.
 
 A few notes before using this module
 ------------------------------------
