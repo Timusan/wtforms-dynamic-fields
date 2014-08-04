@@ -2,8 +2,6 @@ import sys
 import re
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
-import wtforms_dynamic_fields
-
 
 class PyTest(TestCommand):
     def finalize_options(self):

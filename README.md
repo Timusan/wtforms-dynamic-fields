@@ -12,6 +12,12 @@ pip install wtforms-dynamic-fields --pre
 
 The '--pre' flag is necessary until this module has an official release.
 
+Then include it in your project:
+
+```python
+from wtforms_dynamic_fields.wtforms_dynamic_fields import WTFormsDynamicFields
+```
+
 ## A few notes before using this module
 
 If you simply want to add one field to an already existing form, it may be less overhead to simply use *setattr*:
