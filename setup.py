@@ -35,7 +35,7 @@ setup(
     packages=['wtforms_dynamic_fields', 'tests'],
     include_package_data=True,
     platforms='any',
-    test_suite='wtforms_dynamic_fields.tests.test_wtforms_dynamic_fields',
+    test_suite='wtforms_dynamic_fields.tests',
     classifiers = [
         'Programming Language :: Python',
         'Development Status :: 3 - Alpha',
