@@ -72,7 +72,7 @@ Apply the configuration to a form
 Once you have setup your configuration using the above methods, you can
 apply it to any valid WTForm instance.
 
-Usage: process(ValidFormClass(), POST)
+Usage: process(ValidFormClass, POST)
 
 Note that *POST* has to be a MultiDict, which is already the case with
 most frameworks like Flask, Django, ...
