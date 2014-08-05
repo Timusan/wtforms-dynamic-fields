@@ -148,7 +148,7 @@ validator and you pass in a WTForms validator:
 
 .. code:: python
 
-    dynamic.add_validator('email', InputRequired, args={'message':'This field is required'})
+    dynamic.add_validator('email', InputRequired, message='This field is required')
 
 Here too you have the ability to pass in optional *args and *\ kwargs to
 the validator. Again, no parenthesis after InputRequired, its arguments

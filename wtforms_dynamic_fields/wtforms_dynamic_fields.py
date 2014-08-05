@@ -57,7 +57,7 @@ class WTFormsDynamicFields():
             The WTForms validator object
         The rest are optional arguments and keyword arguments that
         belong to the validator. We let them simply pass through
-        to be bound later.
+        to be checked and bound later.
         """
         if name in self._dyn_fields:
             if 'validators' in self._dyn_fields[name]:
@@ -71,7 +71,8 @@ class WTFormsDynamicFields():
                 self._dyn_fields[name]['validators'] = []
                 self.add_validator(name, validator, *args, **kwargs)
         else:
-            raise AttributeError('Field does not exist. Did you forget to add it?')
+            raise AttributeError('Field "{0}" does not exist. '
+                                 'Did you forget to add it?'.format(name))
 
     def process(self, form, post):
         """ Process the given WTForm Form object.
@@ -95,7 +96,7 @@ class WTFormsDynamicFields():
         if not isinstance(form, FormMeta):
             raise TypeError('Given form is not a valid WTForm.')
 
-        re_field_name = re.compile(r'\%([a-zA-Z]*)\%')
+        re_field_name = re.compile(r'\%([a-zA-Z0-9_]*)\%')
 
         class F(form):
             pass
@@ -111,18 +112,17 @@ class WTFormsDynamicFields():
                     field_cname = field
                     # Since we are not in a set, (re)set the current set.
                     current_set_number = None
-                elif (field.split('_', 1)[0].isalpha()
-                      and field.split('_', 1)[0] in self._dyn_fields.keys()
-                      and field.split('_', 1)[1].isdigit()):
-                        # If the field name can be split, the left hand
-                        # contains only letters, the right hand only numbers
-                        # and the left hand is the canonical field name
-                        # as can be found in the _dyn_fields keys,
-                        # we are good to go.
-                        field_cname = field.split('_', 1)[0]
-                        # Since we apparently are in a set, remember the
-                        # the set number we are at.
-                        current_set_number = field.split('_', 1)[1]
+                elif (field.split('_')[-1].isdigit()
+                      and field[:-(len(field.split('_')[-1]))-1] in self._dyn_fields.keys()):
+                    # If the field can be split on underscore characters,
+                    # the last part contains only digits and the 
+                    # everything *but* the last part is found in the
+                    # field configuration, we are good to go.
+                    # (Cowardly refusing to use regex here).
+                    field_cname = field[:-(len(field.split('_')[-1]))-1]
+                    # Since we apparently are in a set, remember the
+                    # the set number we are at.
+                    current_set_number = str(field.split('_')[-1])
                 else:
                     # The field did not match to a canonical name
                     # from the fields dictionary or the name
@@ -130,30 +130,52 @@ class WTFormsDynamicFields():
                     continue
 
             # Since the field seems to be a valid one, let us
-            # prepare the validator arguments and replace the
-            # %field% convention where we find it.
+            # prepare the validator arguments and, if we are in a set
+            # replace the %field_name% convention where we find it.
             validators = []
             if 'validators' in self._dyn_fields[field_cname]:
                 for validator in self._dyn_fields[field_cname]['validators']:
-                    args = [] # Order of lists is persistent, arguments will be applied in order.
+                    args = []
                     kwargs = {}
-                    if 'args' in self._dyn_fields[field_cname][validator.__name__]:
-                        for arg in args:
-                            if current_set_number:
-                                # If we are currently in a set, append the set number
-                                # to all the words that are decorated with %'s
-                                arg = re_field_name.sub(r'\1'+'_'+current_set_number, arg)
-                                # Add the argument to the list
-                            args.append(arg)
-                    if 'kwargs' in self._dyn_fields[field_cname][validator.__name__]:
-                        for key, arg in self._dyn_fields[field_cname][validator.__name__]['kwargs'].iteritems():
-                            if current_set_number:
-                                # If we are currently in a set, append the set number
-                                # to all the words that are decorated with %'s
-                                arg = re_field_name.sub(r'\1'+'_'+current_set_number, arg)
-                            # If it has a valid key, it is a keyword argument
-                            # Add it to the keyword dictionary
-                            kwargs[key] = arg
+                    if 'args' in self._dyn_fields[field_cname]\
+                       [validator.__name__]:
+                        if not current_set_number:
+                            args = self._dyn_fields[field_cname]\
+                                   [validator.__name__]['args']
+                        else:
+                            # If we are currently in a set, append the set number
+                            # to all the words that are decorated with %'s within
+                            # the arguments.
+                            for arg in self._dyn_fields[field_cname]\
+                                [validator.__name__]['args']:
+                                try:
+                                    arg = re_field_name.sub(r'\1'+'_'+current_set_number,
+                                                            arg)
+                                except:
+                                    # The argument does not seem to be regex-able
+                                    # Probably not a string, thus we can skip it.
+                                    pass
+                                args.append(arg)
+                    if 'kwargs' in self._dyn_fields[field_cname]\
+                       [validator.__name__]:
+                        if not current_set_number:
+                            kwargs = self._dyn_fields[field_cname]\
+                                     [validator.__name__]['kwargs']
+                        else:
+                            # If we are currently in a set, append the set number
+                            # to all the words that are decorated with %'s within
+                            # the arguments.
+                            for key, arg in self._dyn_fields[field_cname]\
+                                [validator.__name__]['kwargs'].iteritems():
+                                try:
+                                    arg = re_field_name.sub(r'\1'+'_'+current_set_number,
+                                                            arg)
+                                    print arg
+                                except:
+                                    # The argument does not seem to be regex-able
+                                    # Probably not a string, thus we can skip it.
+                                    pass
+                                kwargs[key] = arg
                     # Finally, bind arguments to the validator
                     # and add it to the list
                     validators.append(validator(*args, **kwargs))
