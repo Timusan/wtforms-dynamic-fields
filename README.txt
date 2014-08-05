@@ -63,7 +63,7 @@ Usage: add\_validator('field\_machine\_name', WTFormValidator, \*args,
 \*\*kwargs)
 
 -  Decorate field machine name arguments with %'s
-   (%some\_field\_machine\_name) to have them automatically suffixed
+   (%some\_field\_machine\_name%) to have them automatically suffixed
    with a set number if applicable. More on this below.
 
 Apply the configuration to a form

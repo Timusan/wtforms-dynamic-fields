@@ -45,7 +45,7 @@ The method *add_validator()* is used to add a validator to an added field config
 
 Usage: add_validator('field_machine_name', validator=WTFormValidator, *args, **kwargs)
 
-* Decorate field machine name arguments with %'s (%some_field_machine_name) to have them automatically suffixed with a set number if applicable. More on this below.
+* Decorate field machine name arguments with %'s (%some_field_machine_name%) to have them automatically suffixed with a set number if applicable. More on this below.
 
 ### Apply the configuration to a form
 
