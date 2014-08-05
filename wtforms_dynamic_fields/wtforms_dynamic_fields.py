@@ -170,7 +170,6 @@ class WTFormsDynamicFields():
                                 try:
                                     arg = re_field_name.sub(r'\1'+'_'+current_set_number,
                                                             arg)
-                                    print arg
                                 except:
                                     # The argument does not seem to be regex-able
                                     # Probably not a string, thus we can skip it.
