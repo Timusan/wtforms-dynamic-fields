@@ -88,7 +88,7 @@ This is where this module steps in.
 First you will need an instance of the module:
 
 ```python
-dynamic = WTFormDynamicFields()
+dynamic = WTFormsDynamicFields()
 ```
 
 Next you will need to build the configuration which will hold the allowed, dynamic fields (and their validators).
