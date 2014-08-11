@@ -45,13 +45,13 @@ The method *add_validator()* is used to add a validator to an added field config
 
 Usage: add_validator('field_machine_name', validator=WTFormValidator, *args, **kwargs)
 
-* Decorate field machine name arguments with %'s (%some_field_machine_name) to have them automatically suffixed with a set number if applicable. More on this below.
+* Decorate field machine name arguments with %'s (%some_field_machine_name%) to have them automatically suffixed with a set number if applicable. More on this below.
 
 ### Apply the configuration to a form
 
 Once you have setup your configuration using the above methods, you can apply it to any valid WTForm instance.
 
-Usage: process(ValidFormClass(), POST)
+Usage: process(ValidFormClass, POST)
 
 Note that *POST* has to be a MultiDict, which is already the case with most frameworks like Flask, Django, ...
 
@@ -88,7 +88,7 @@ This is where this module steps in.
 First you will need an instance of the module:
 
 ```python
-dynamic = WTFormDynamicFields()
+dynamic = WTFormsDynamicFields()
 ```
 
 Next you will need to build the configuration which will hold the allowed, dynamic fields (and their validators).
@@ -110,7 +110,7 @@ You define on which field you wish to apply the validator and you pass in a WTFo
 dynamic.add_validator('email', InputRequired, message='This field is required')
 ```
 
-Here too you have the ability to pass in optional *args and *kwargs to the validator.
+Here too you have the ability to pass in optional *args and **kwargs to the validator.
 Again, no parenthesis after InputRequired, its arguments will be bound by the module later on.
 
 Now that you have added this email field and pushed a validator on it, you are ready to process your form.
@@ -127,8 +127,6 @@ To enable this module to process you form, however, you simply need to wrap its 
 ```python
 form = dynamic.process(PersonalFile, request.post)
 ```
-
-*Note: the POST is expected to be a MultiDict data type (which is the case with most frameworks like Flask, Django, ...).
 
 Now the form will pick up the optional email field when injected and make the validation fail server side if the field is left empty.
 Removing the field from the DOM will make your form pass validation again (given that you filled in the first_name and last_name fields, that is).

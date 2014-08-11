@@ -63,7 +63,7 @@ Usage: add\_validator('field\_machine\_name', WTFormValidator, \*args,
 \*\*kwargs)
 
 -  Decorate field machine name arguments with %'s
-   (%some\_field\_machine\_name) to have them automatically suffixed
+   (%some\_field\_machine\_name%) to have them automatically suffixed
    with a set number if applicable. More on this below.
 
 Apply the configuration to a form
@@ -72,7 +72,7 @@ Apply the configuration to a form
 Once you have setup your configuration using the above methods, you can
 apply it to any valid WTForm instance.
 
-Usage: process(ValidFormClass(), POST)
+Usage: process(ValidFormClass, POST)
 
 Note that *POST* has to be a MultiDict, which is already the case with
 most frameworks like Flask, Django, ...
@@ -150,7 +150,7 @@ validator and you pass in a WTForms validator:
 
     dynamic.add_validator('email', InputRequired, message='This field is required')
 
-Here too you have the ability to pass in optional *args and *\ kwargs to
+Here too you have the ability to pass in optional \*args and \*\*kwargs to
 the validator. Again, no parenthesis after InputRequired, its arguments
 will be bound by the module later on.
 
@@ -172,9 +172,6 @@ wrap its "process" method around it and add the incoming POST:
 .. code:: python
 
     form = dynamic.process(PersonalFile, request.post)
-
-\*Note: the POST is expected to be a MultiDict data type (which is the
-case with most frameworks like Flask, Django, ...).
 
 Now the form will pick up the optional email field when injected and
 make the validation fail server side if the field is left empty.
