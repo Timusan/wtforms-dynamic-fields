@@ -125,7 +125,7 @@ First you will need an instance of the module:
 
 .. code:: python
 
-    dynamic = WTFormDynamicFields()
+    dynamic = WTFormsDynamicFields()
 
 Next you will need to build the configuration which will hold the
 allowed, dynamic fields (and their validators). To do this, you use the
