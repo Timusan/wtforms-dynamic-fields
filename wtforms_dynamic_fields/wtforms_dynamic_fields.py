@@ -1,4 +1,5 @@
 import re
+import sys
 from wtforms.form import FormMeta
 
 class WTFormsDynamicFields():
@@ -73,6 +74,18 @@ class WTFormsDynamicFields():
         else:
             raise AttributeError('Field "{0}" does not exist. '
                                  'Did you forget to add it?'.format(name))
+
+    @staticmethod
+    def iteritems(dict):
+        """ Refusing to use a possible memory hugging
+        Python2 .items() method. So for providing
+        both Python2 and 3 support, setting up iteritems()
+        as either items() in 3 or iteritems() in 2.
+        """
+        if sys.version_info[0] >= 3:
+            return dict.items()
+        else:
+            return dict.iteritems()
 
     def process(self, form, post):
         """ Process the given WTForm Form object.
@@ -165,8 +178,8 @@ class WTFormsDynamicFields():
                             # If we are currently in a set, append the set number
                             # to all the words that are decorated with %'s within
                             # the arguments.
-                            for key, arg in self._dyn_fields[field_cname]\
-                                [validator.__name__]['kwargs'].iteritems():
+                            for key, arg in self.iteritems(self._dyn_fields[field_cname]\
+                                [validator.__name__]['kwargs']):
                                 try:
                                     arg = re_field_name.sub(r'\1'+'_'+current_set_number,
                                                             arg)

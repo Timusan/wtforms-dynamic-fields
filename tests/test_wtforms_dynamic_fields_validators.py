@@ -1,10 +1,11 @@
+from __future__ import absolute_import
 import pytest
 from copy import deepcopy
-from forms import SimpleForm
+from .forms import SimpleForm
 from webob.multidict import MultiDict
 from wtforms import TextField, IntegerField
 from wtforms.validators import (EqualTo, Length, NumberRange, AnyOf)
-from wtforms_dynamic_fields.wtforms_dynamic_fields import WTFormsDynamicFields
+from wtforms_dynamic_fields import WTFormsDynamicFields
 
 """ This test module uses PyTest (py.test command) for its testing.
 

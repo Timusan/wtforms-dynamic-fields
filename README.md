@@ -164,7 +164,7 @@ Such a validator would take the *other* field's name as an argument:
 
 	RequiredIfEmpty('email')
 
-The above validator would be put on the "telephone" field to check if the email field was left empty.
+The above (fictional) validator would be put on the "telephone" field to check if the email field was left empty.
 
 Now if you have multiple sets of these fields, each field name will be suffixed with a number, like we have seen before:
 

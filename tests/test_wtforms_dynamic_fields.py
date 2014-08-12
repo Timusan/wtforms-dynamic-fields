@@ -1,10 +1,11 @@
+from __future__ import absolute_import
 import pytest
 from copy import deepcopy
-from forms import SimpleForm
+from .forms import SimpleForm
 from webob.multidict import MultiDict
 from wtforms import TextField
 from wtforms.validators import InputRequired
-from wtforms_dynamic_fields.wtforms_dynamic_fields import WTFormsDynamicFields
+from wtforms_dynamic_fields import WTFormsDynamicFields
 
 """ This test module uses PyTest (py.test command) for its testing. """
 
@@ -211,7 +212,6 @@ def test_long_field_name_replacement(setup):
     form.validate()
 
     assert form.validate() == False
-    print form.errors
     assert form.errors['a_very_long_10_field_name_1'] == ['Please fill in a_very_long_10_field_name_1 or yet_another_34_long_2_name_10_1.']
     assert form.errors['yet_another_34_long_2_name_10_1'] == ['Please fill in a_very_long_10_field_name_1 or yet_another_34_long_2_name_10_1.']
     assert form.errors['a_very_long_10_field_name_2'] == ['Please fill in a_very_long_10_field_name_2 or yet_another_34_long_2_name_10_2.']
