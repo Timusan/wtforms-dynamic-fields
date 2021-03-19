@@ -1,7 +1,7 @@
 Cheesecake==0.6.1
 Flask==0.10.1
 Flask-WTF==0.10.0
-Jinja2==2.7.3
+Jinja2==2.11.3
 MarkupSafe==0.23
 WTForms==2.0.1
 WTForms-Dynamic-Fields==0.1a2
